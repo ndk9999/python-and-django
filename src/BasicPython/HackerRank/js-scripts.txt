@@ -1,0 +1,25 @@
+
+--- Set time limit to 1 second ---
+
+['ada', 'bash', 'c', 'csharp', 'cpp', 'cpp14', 'cpp20', 'clojure', 'coffeescript', 'sbcl', 'd', 'dart', 'elixir', 'erlang', 'fsharp', 'fortran', 'go', 'groovy', 'haskell', 'java', 'java15', 'java8', 'javascript', 'julia', 'kotlin', 'lolcode', 'lua', 'ocaml', 'objectivec', 'php', 'pascal', 'perl', 'pypy', 'pypy3', 'python', 'python3', 'r', 'racket', 'ruby', 'rust', 'scala', 'smalltalk', 'swift', 'tcl', 'typescript', 'visualbasic', 'verilog']
+
+var languages = $('input[id^=enable-checkbox-]:checked').map(function () { return $(this).attr('id').substr('enable-checkbox-'.length)}).toArray();
+var langIdx = 0;
+function setTimeLimit(challengeId, timeLimit) {
+    setTimeout(function () {
+        new HR.Administration_ChallengeLanguageModel({
+            "time_limit": timeLimit,
+            "challenge_id": challengeId,
+            "language_key": languages[langIdx]
+        }).save();
+        langIdx++;
+        if (langIdx < languages.length) {
+            setTimeLimit(challengeId, timeLimit);
+        }
+    }, 1000);    
+}
+langIdx = 0;
+var problemId = location.href.replace(/\D/g, '');
+setTimeLimit(problemId, 1)
+
+
