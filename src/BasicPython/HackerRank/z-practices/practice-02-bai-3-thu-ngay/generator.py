@@ -1,5 +1,5 @@
 #########################################################
-# Luyen tap 01 - Bai 1 - Boc bi
+# Luyen tap 02 - Bai 3 - Ngay thu may trong tuan
 #########################################################
 
 from random import randrange

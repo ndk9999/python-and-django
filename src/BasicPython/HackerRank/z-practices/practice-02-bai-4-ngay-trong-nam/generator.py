@@ -1,5 +1,5 @@
 #########################################################
-# Luyen tap 01 - Bai 1 - Boc bi
+# Luyen tap 02 - Bai 4 - Ngay thu may trong nam
 #########################################################
 
 from random import randrange
@@ -77,8 +77,8 @@ def zip_files():
 
 print(f'Generating test cases for the problem {problem_name}')
 
-# create_folders()
-# generate()
+create_folders()
+generate()
 zip_files()
 
 print(27, 10, 2008, solve(27, 10, 2008))

@@ -1,5 +1,5 @@
 #########################################################
-# Luyen tap 01 - Bai 1 - Boc bi
+# Luyen tap 02 - Bai 2 - Dem so nam nhuan giua 2 nam
 #########################################################
 
 from random import randrange
