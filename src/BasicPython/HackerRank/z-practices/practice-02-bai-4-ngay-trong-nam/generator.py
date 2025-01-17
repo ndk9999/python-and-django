@@ -45,6 +45,10 @@ def solve(d, m, y):
         return 0
     
     days = 0
+
+    if is_leap_year(y) and m > 2:
+        days = 1
+
     for i in range(m):
         days += so_ngay[i]
 
@@ -73,12 +77,19 @@ def zip_files():
 
 print(f'Generating test cases for the problem {problem_name}')
 
-create_folders()
-generate()
+# create_folders()
+# generate()
 zip_files()
 
-print(1, 1, 2025, solve(1, 1, 2025))
-print(10, 1, 2025, solve(10, 1, 2025))
-print(11, 2, 2025, solve(11, 2, 2025))
-print(1, 3, 2025, solve(1, 3, 2025))
-print(25, 11, 2025, solve(25, 11, 2025))
+print(27, 10, 2008, solve(27, 10, 2008))
+print(23, 10, 2030, solve(23, 10, 2030))
+print(17, 11, 986, solve(17, 11, 986))
+print(16, 4, 1712, solve(16, 4, 1712))
+print(3, 0, 2696, solve(3, 0, 2696))
+print(21, 9, 3371, solve(21, 9, 3371))
+print(3, 7, 4987, solve(3, 7, 4987))
+print(29, 2, 5556, solve(29, 2, 5556))
+print(10, 7, 6200, solve(10, 7, 6200))
+print(6, 7, 7981, solve(6, 7, 7981))
+print(27, 8, 9288, solve(27, 8, 9288))
+print(22, 3, 2001, solve(22, 3, 2001))
