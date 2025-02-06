@@ -1,5 +1,5 @@
 #########################################################
-# Luyen tap 05 - Bai 4 - Xep hang diem thi
+# Luyen tap 05 - Bai 1 - Bat cap so cung tinh chan le
 #########################################################
 
 import random
@@ -7,8 +7,8 @@ import math
 import os
 import shutil
 
-min_values = [0,  0,  0,   100,   10**3,  10**4,  0,    100,    10**3,  10**4,  10**2,  10**3]
-max_values = [10, 50, 100, 10**3, 10**4,  10**5,  100,  10**3,  10**4,  10**5,  10**4,  10**5]
+min_values = [1,  1,  1,  20, 10,  10**2, 10**3, 10**4, 10,    10**2,  10**3,  10**4]
+max_values = [10, 20, 10, 50, 100, 10**3, 10**4, 10**5, 10**2, 10**3,  10**4,  10**5]
 
 working_dir = os.path.dirname(os.path.realpath(__file__))
 problem_name = os.path.split(working_dir)[-1]
@@ -26,39 +26,31 @@ def create_folders():
     if not os.path.exists(output_path):
         os.makedirs(output_path)
 
-def solve(n, scores):
-    if n < 4 or n % 4 > 0:
-        return -1, -1, -1
+def solve(n, numbers):
+    if n == 1:
+        return numbers[0]
 
-    m = n // 4
-    scores = sorted(scores, reverse=True)
+    odd = sum([x % 2 for x in numbers])
 
-    if scores[m-1] == scores[m] or scores[2*m-1] == scores[2*m] or scores[3*m-1] == scores[3*m]:
-        return -1, -1, -1
-
-    return scores[m-1], scores[2*m-1], scores[3*m-1]
+    return -1 if odd % 2 == 1 else sum(numbers)
 
 def generate():
     for i in range(len(min_values)):
         print(f'Generating test case {i}')
 
-        n = random.randrange(1, (max_values[i] - min_values[i]) // 4) * 4 + min_values[i]
-        scores = [random.randint(0, 101) for _ in range(n)]
+        m = min_values[i] * 10 if i < 5 else 10**6
+        n = random.randrange(min_values[i], max_values[i])
+        numbers = [random.randrange(0, m) for _ in range(n)]
 
-        a, b, c = solve(n, scores)
+        r = solve(n, numbers)
 
         fi = open(os.path.join(input_path, f'input{i:02d}.txt'), mode='w')
         fi.write(f'{n}\n')
-        fi.write(' '.join([str(x) for x in scores]))
+        fi.write(' '.join([str(x) for x in numbers]))
         fi.close()
 
         fo = open(os.path.join(output_path, f'output{i:02d}.txt'), mode='w', encoding='utf-8')
-        
-        if a < 0:
-            fo.write('-1')
-        else:
-            fo.write(f'{a} {b} {c}')
-
+        fo.write(f'{r}')
         fo.close()
 
 def zip_files():
@@ -66,10 +58,9 @@ def zip_files():
 
 print(f'Generating test cases for the problem {problem_name}')
 
-# create_folders()
-# generate()
+create_folders()
+generate()
 zip_files()
 
-print(solve(4, [90, 25, 60, 75]))
-print(solve(8, [27, 29, 92, 92, 67, 67, 85, 92]))
-print(solve(8, [0, 1, 2, 3, 4, 5, 6, 7]))
+print(solve(3, [1, 2, 3]))
+print(solve(5, [1, 2, 3, 4, 5]))

@@ -1,5 +1,5 @@
 #########################################################
-# Luyen tap 04 - Bai 3 - So may man va gan may man
+# Luyen tap 04 - Bai 4 - Tro choi lat dong xu
 #########################################################
 
 import random
