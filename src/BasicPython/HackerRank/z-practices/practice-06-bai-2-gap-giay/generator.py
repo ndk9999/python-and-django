@@ -1,5 +1,5 @@
 #########################################################
-# Luyen tap 05 - Bai 3 - Dem so thao tac lat nap chai
+# Luyen tap 06 - Bai 2 - Dem so lan gap giay
 #########################################################
 
 import random
@@ -7,8 +7,8 @@ import math
 import os
 import shutil
 
-min_values = [1,  20,  10,  100,   10**3, 10**4, 10**5, 10**1,  10**2,  10**4, 10**3]
-max_values = [20, 100, 100, 10**3, 10**4, 10**5, 10**6, 10**3,  10**4,  10**6, 10**6]
+min_values = [1,  20,  10,  100,   10**3, 10**4, 10**5, 10**6, 10**7, 10**8, 10**5]
+max_values = [20, 100, 100, 10**3, 10**4, 10**5, 10**6, 10**7, 10**8, 10**9, 10**9]
 
 working_dir = os.path.dirname(os.path.realpath(__file__))
 problem_name = os.path.split(working_dir)[-1]
@@ -26,24 +26,39 @@ def create_folders():
     if not os.path.exists(output_path):
         os.makedirs(output_path)
 
-def solve(teo, tun):
-    n = len(teo)
-    d = sum([teo[i] != tun[i] for i in range(n)])
+def solve(a, b):
+    if a == b:
+        return 0
 
-    return d // 2 if d % 2 == 0 else -1
+    if a < b:
+        a, b = b, a
+
+    counter = 0
+    r = a % b
+
+    while r > 0:
+        counter += a // b
+        a = b
+        b = r
+        r = a % b
+
+    if a > b:
+        counter += a // b
+        counter -= 1
+
+    return counter
 
 def generate():
     for i in range(len(min_values)):
         print(f'Generating test case {i}')
 
-        n = random.randrange(min_values[i], max_values[i])
-        teo = ''.join(random.choices('01', k=n))
-        tun = ''.join(random.choices('01', k=n))
+        d = random.randrange(min_values[i], max_values[i])
+        r = random.randrange(1, d)
 
-        answer = solve(teo, tun)
+        answer = solve(d, r)
 
         fi = open(os.path.join(input_path, f'input{i:02d}.txt'), mode='w')
-        fi.write(f'{teo}\n{tun}')
+        fi.write(f'{d} {r}')
         fi.close()
 
         fo = open(os.path.join(output_path, f'output{i:02d}.txt'), mode='w', encoding='utf-8')
@@ -59,5 +74,5 @@ create_folders()
 generate()
 zip_files()
 
-print(solve('00110', '10100'))
-print(solve('0011000111', '1010010001'))
+print(solve(10, 7))
+print(solve(10, 2))

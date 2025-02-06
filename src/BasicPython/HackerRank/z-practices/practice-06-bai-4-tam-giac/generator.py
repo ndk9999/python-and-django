@@ -1,5 +1,5 @@
 #########################################################
-# Luyen tap 05 - Bai 3 - Dem so thao tac lat nap chai
+# Luyen tap 06 - Bai 4 - Day bo ba so khong tao tam giac
 #########################################################
 
 import random
@@ -7,8 +7,8 @@ import math
 import os
 import shutil
 
-min_values = [1,  20,  10,  100,   10**3, 10**4, 10**5, 10**1,  10**2,  10**4, 10**3]
-max_values = [20, 100, 100, 10**3, 10**4, 10**5, 10**6, 10**3,  10**4,  10**6, 10**6]
+min_values = [1,  1,  10,  100,   10**3, 10**6, 10**8, 10**10, 10**12, 10**14, 10**16]
+max_values = [10, 50, 100, 10**3, 10**5, 10**7, 10**9, 10**11, 10**13, 10**15, 10**18]
 
 working_dir = os.path.dirname(os.path.realpath(__file__))
 problem_name = os.path.split(working_dir)[-1]
@@ -26,24 +26,49 @@ def create_folders():
     if not os.path.exists(output_path):
         os.makedirs(output_path)
 
-def solve(teo, tun):
-    n = len(teo)
-    d = sum([teo[i] != tun[i] for i in range(n)])
+def solve(n, k):
+    if n < 3 or k < 3:
+        return 'NO'
 
-    return d // 2 if d % 2 == 0 else -1
+    first = 1
+    mid = 1
+    count = 2
+
+    while count < n and first + mid <= k:
+        next = first + mid
+        count += 1
+        first = mid
+        mid = next 
+
+    if count < n:
+        return 'NO'
+    
+    return 'YES'
 
 def generate():
     for i in range(len(min_values)):
         print(f'Generating test case {i}')
 
+        k = random.randrange(min_values[i], max_values[i])
         n = random.randrange(min_values[i], max_values[i])
-        teo = ''.join(random.choices('01', k=n))
-        tun = ''.join(random.choices('01', k=n))
 
-        answer = solve(teo, tun)
+        if k < 10**3:
+            n = random.randrange(1, 20)
+        elif k < 10**6:
+            n = random.randrange(5, 30)
+        elif k < 10**9:
+            n = random.randrange(10, 40)
+        elif k < 10**12:
+            n = random.randrange(15, 60)
+        elif k < 10**15:
+            n = random.randrange(20, 80)
+        elif k < 10**18:
+            n = random.randrange(25, 100)
+
+        answer = solve(n, k)
 
         fi = open(os.path.join(input_path, f'input{i:02d}.txt'), mode='w')
-        fi.write(f'{teo}\n{tun}')
+        fi.write(f'{n} {k}')
         fi.close()
 
         fo = open(os.path.join(output_path, f'output{i:02d}.txt'), mode='w', encoding='utf-8')
@@ -59,5 +84,8 @@ create_folders()
 generate()
 zip_files()
 
-print(solve('00110', '10100'))
-print(solve('0011000111', '1010010001'))
+print(solve(1, 2))
+print(solve(5, 5))
+print(solve(3, 3))
+print(solve(6, 5))
+print(solve(87, 1000000000000000000))

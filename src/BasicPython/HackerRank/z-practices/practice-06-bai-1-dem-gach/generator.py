@@ -1,5 +1,5 @@
 #########################################################
-# Luyen tap 05 - Bai 3 - Dem so thao tac lat nap chai
+# Luyen tap 06 - Bai 1 - Dem so gach can lat can phong
 #########################################################
 
 import random
@@ -7,8 +7,8 @@ import math
 import os
 import shutil
 
-min_values = [1,  20,  10,  100,   10**3, 10**4, 10**5, 10**1,  10**2,  10**4, 10**3]
-max_values = [20, 100, 100, 10**3, 10**4, 10**5, 10**6, 10**3,  10**4,  10**6, 10**6]
+min_values = [1,  20,  10,  100,   10**3, 10**4, 10**5, 10**6, 10,    10**2, 10**4]
+max_values = [20, 100, 100, 10**3, 10**4, 10**5, 10**6, 10**7, 10**3, 10**5, 10**7]
 
 working_dir = os.path.dirname(os.path.realpath(__file__))
 problem_name = os.path.split(working_dir)[-1]
@@ -26,28 +26,49 @@ def create_folders():
     if not os.path.exists(output_path):
         os.makedirs(output_path)
 
-def solve(teo, tun):
-    n = len(teo)
-    d = sum([teo[i] != tun[i] for i in range(n)])
+def solve(d, r, n, m):
+    t7 = 10**7
+    t9 = 10**9
 
-    return d // 2 if d % 2 == 0 else -1
+    if d <= 0 or d > t7 or r <= 0 or r > t7 or m <= 0 or m > t9 or n <= 0 or n > 100:
+        return -1, -1
+
+    total = d * r * n
+
+    if m > total or (m + total) % 2 == 1:
+        return -1, -1
+
+    yellow = (total + m) // 2
+    red = yellow - m
+
+    return yellow, red
 
 def generate():
     for i in range(len(min_values)):
         print(f'Generating test case {i}')
 
-        n = random.randrange(min_values[i], max_values[i])
-        teo = ''.join(random.choices('01', k=n))
-        tun = ''.join(random.choices('01', k=n))
+        d = random.randrange(min_values[i], max_values[i])
+        r = random.randrange(min_values[i], max_values[i])
+        n = random.randrange(1, 101)
 
-        answer = solve(teo, tun)
+        s = d * r * n
+
+        if s < 10**9:
+            m = random.randrange(1, s)
+        else:
+            m = random.randrange(1, 10**9)
+
+        if (s + m) % 2 == 1:
+            m += 1
+
+        yellow, red = solve(d, r, n, m)
 
         fi = open(os.path.join(input_path, f'input{i:02d}.txt'), mode='w')
-        fi.write(f'{teo}\n{tun}')
+        fi.write(f'{d}\n{r}\n{n}\n{m}')
         fi.close()
 
         fo = open(os.path.join(output_path, f'output{i:02d}.txt'), mode='w', encoding='utf-8')
-        fo.write(f'{answer}')
+        fo.write(f'{yellow}\n{red}')
         fo.close()
 
 def zip_files():
@@ -55,9 +76,9 @@ def zip_files():
 
 print(f'Generating test cases for the problem {problem_name}')
 
-create_folders()
-generate()
+# create_folders()
+# generate()
 zip_files()
 
-print(solve('00110', '10100'))
-print(solve('0011000111', '1010010001'))
+print(solve(8, 6, 12, 120))
+print(solve(9111799, 3350208, 21, 941994921))
