@@ -83,11 +83,11 @@ def generate2():
         if not os.path.exists(sample_path):
             os.makedirs(sample_path)
 
-        fi = open(os.path.join(sample_path, f'cau1.inp'), mode='w')
+        fi = open(os.path.join(sample_path, f'cau3.inp'), mode='w')
         fi.write(f'{m}\n{n}')
         fi.close()
 
-        fo = open(os.path.join(sample_path, f'cau1.out'), mode='w', encoding='utf-8')
+        fo = open(os.path.join(sample_path, f'cau3.out'), mode='w', encoding='utf-8')
         fo.write(f'{r}')
         fo.close()
 
