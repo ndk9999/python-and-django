@@ -27,7 +27,6 @@ https://oj.vnoi.info/problem/bedao_m03_tile
 https://oj.vnoi.info/problem/bedao_m03_gochess
 https://oj.vnoi.info/problem/bedao_m08_checkarray
 https://oj.vnoi.info/problem/bedao_m08_wordsearch
-https://oj.vnoi.info/problem/bedao_m08_triangle
 https://oj.vnoi.info/problem/bedao_m11_sqrcut
 
 Cho 3 mặt xúc xắc, tính tổng số chấm 3 mặt còn lại.
